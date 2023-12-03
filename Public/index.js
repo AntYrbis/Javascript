@@ -79,6 +79,11 @@ function showBooksInLibrary() {
     console.log("Show Books In Library");
     const bookList = document.querySelector('#table-content');
     bookList.innerHTML = '';
+    if (myLibrary.length === 0) {
+        bookList.classList.add("hidden");
+        return;
+    }
+    bookList.classList.remove("hidden");
     myLibrary.forEach(book => {
         const bookRow = document.createElement('div');
         bookRow.classList.add('books-info');
@@ -88,31 +93,55 @@ function showBooksInLibrary() {
         bookInfo.classList.add('book-container');
         bookRow.appendChild(bookInfo);
 
-        // BOOK TITLE
         const bookTitle = document.createElement('div');
-        bookTitle.textContent = book.title;
+        bookTitle.textContent = "\" " + book.title + " \"";
         bookInfo.appendChild(bookTitle);
-        // BOOK AUTHOR
+
         const bookAuthor = document.createElement('div');
-        bookAuthor.textContent = book.author;
+        bookAuthor.textContent = "by " + book.author;
         bookInfo.appendChild(bookAuthor);
-        // BOOK PAGES
+
         const bookPages = document.createElement('div');
-        bookPages.textContent = book.pages;
+        bookPages.textContent = book.pages + " pages";
         bookInfo.appendChild(bookPages);
-        // BOOK STATUS BUTTON
+
         const bookStatus = document.createElement('div');
-        const statusSymbol = document.createElement('check');
+        const statusSymbol = document.createElement('read');
+        statusSymbol.dataset.bookTitle = book.title;
+        statusSymbol.classList.add(book.read);
+        statusSymbol.addEventListener('click', toggleReadStatus);
         if (!book.read) {
-            statusSymbol.classList.add('fas', 'fa-times');
+            statusSymbol.textContent = "Not Read";
         } else {
-            statusSymbol.classList.add('fas', 'fa-check');
+            statusSymbol.textContent = "Read";
         }
         bookStatus.appendChild(statusSymbol);
         bookInfo.appendChild(bookStatus);
 
-
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', () => removeBook(book.title));
+        bookInfo.appendChild(removeButton);
     });
+}
+
+function toggleReadStatus(event) {
+    const statusSymbol = event.currentTarget;
+    const bookId = statusSymbol.dataset.bookTitle;
+    const book = getBookById(bookId);
+    book.read = !book.read;
+    statusSymbol.classList.remove('true', 'false');
+    statusSymbol.classList.add(book.read ? 'true' : 'false');
+    statusSymbol.textContent = book.read ? "Read" : "Not Read";
+}
+
+function getBookById(bookId) {
+    return myLibrary.find(book => book.title === bookId);
+}
+
+function removeBook(bookTitle) {
+    myLibrary.splice(getBookById(bookTitle), 1);
+    showBooksInLibrary();
 }
 
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
