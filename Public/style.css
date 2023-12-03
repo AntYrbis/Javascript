@@ -114,6 +114,22 @@ button:hover {
     color: var(--secondary);
 }
 
+#table-content {
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.books-info {
+    margin: 10px;
+}
+
+.book-container {
+    background-color: var(--form);
+    padding: 10px;
+    border-radius: 10px;
+}
+
 /*FORM POP UP*/
 #form-title {
     font-size: 2em;
@@ -149,7 +165,7 @@ form {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 45px;
-    padding: 50px;
+    padding: 45px;
     color: var(--form-txt);
     place-content: center;
 }

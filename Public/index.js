@@ -63,15 +63,76 @@ function Book(title, author, pages, read) {
     };
 }
 
-function addBookToLibrary() {
-    book = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
+function addBookToLibrary(title, author, pages, read) {
+    const book = new Book(title, author, pages, read);
     myLibrary.push(book);
+    console.log("Adding : ");
+    console.log(book.info());
+    showBooksInLibrary();
 }
 
 Book.prototype.isABook = function () {
     console.log("It's a book !");
 }
 
+function showBooksInLibrary() {
+    console.log("Show Books In Library");
+    const bookList = document.querySelector('#table-content');
+    bookList.innerHTML = '';
+    myLibrary.forEach(book => {
+        const bookRow = document.createElement('div');
+        bookRow.classList.add('books-info');
+        bookList.appendChild(bookRow);
+
+        const bookInfo = document.createElement('div');
+        bookInfo.classList.add('book-container');
+        bookRow.appendChild(bookInfo);
+
+        // BOOK TITLE
+        const bookTitle = document.createElement('div');
+        bookTitle.textContent = book.title;
+        bookInfo.appendChild(bookTitle);
+        // BOOK AUTHOR
+        const bookAuthor = document.createElement('div');
+        bookAuthor.textContent = book.author;
+        bookInfo.appendChild(bookAuthor);
+        // BOOK PAGES
+        const bookPages = document.createElement('div');
+        bookPages.textContent = book.pages;
+        bookInfo.appendChild(bookPages);
+        // BOOK STATUS BUTTON
+        const bookStatus = document.createElement('div');
+        const statusSymbol = document.createElement('check');
+        if (!book.read) {
+            statusSymbol.classList.add('fas', 'fa-times');
+        } else {
+            statusSymbol.classList.add('fas', 'fa-check');
+        }
+        bookStatus.appendChild(statusSymbol);
+        bookInfo.appendChild(bookStatus);
+
+
+    });
+}
+
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
-theHobbit.isABook()
-console.log(theHobbit.info());
+window.onload = function () {
+    addBookToLibrary(theHobbit.title, theHobbit.author, theHobbit.pages, theHobbit.read)
+
+    const bookForm = document.querySelector("#book-form");
+    const bookbutton = document.querySelector("#submit-btn");
+
+    bookbutton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const author = bookForm.elements['author'].value;
+        const title = bookForm.elements['title'].value;
+        const pages = bookForm.elements['pages'].value;
+        const read = bookForm.elements['read'].checked;
+        addBookToLibrary(author, title, pages, read);
+        console.log(`New Book Added - Author: ${author}, Title: ${title}, Pages: ${pages}, Read: ${read}`);
+
+        bookForm.reset();
+        var side = document.getElementById("pop-up");
+        side.className = side.className === "pop-up hidden" ? "pop-up show" : "pop-up hidden";
+    });
+};
