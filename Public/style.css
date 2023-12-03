@@ -1,0 +1,301 @@
+/* Imports */
+@import url("https://necolas.github.io/normalize.css/8.0.1/normalize.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+/* GENERAL */
+/* Variable declaration on root for themes */
+:root {
+    --main-blue: rgb(64, 123, 255);
+    --error: rgb(231, 80, 80);
+    --grey-light: rgba(168, 187, 193, 0.3);
+    --grey-medium: rgba(157, 160, 162, 0.6);
+    --grey-back: rgba(150, 150, 150, 0.3)
+}
+
+:root.light {
+    --blue: rgb(40, 108, 255);
+    --dark-blue: rgb(59, 120, 252);
+    --light: rgb(216, 228, 255);
+    --secondary: rgb(237, 242, 254);
+    --txt: white;
+    --blue-txt: rgb(64, 123, 255);
+    --form: rgb(178, 193, 225);
+    --form-txt: rgb(144, 157, 187);
+}
+
+:root.dark {
+    --blue: rgb(64, 123, 255);
+    --dark-blue: rgb(19, 39, 83);
+    --secondary: rgb(7, 7, 7);
+    --light: rgb(8, 18, 35);
+    --txt: rgb(29, 43, 58);
+    --blue-txt: rgb(64, 123, 255);
+    --form: rgb(22, 34, 53);
+    --form-txt: rgb(159, 177, 216);
+}
+
+/* Main theme */
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Roboto Condensed', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--main-blue);
+}
+
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: var(--blue);
+    min-height: 100vh;
+}
+
+button {
+    padding: 10px;
+    background-color: transparent;
+    border-radius: 15px;
+    border-style: none;
+    color: var(--form-txt);
+}
+
+button:hover {
+    cursor: pointer;
+    transition: 0.4s;
+    transform: scale(1.1);
+    background-color: var(--main-blue);
+    color: var(--txt);
+}
+
+.simple-icon {
+    height: 2rem;
+    margin-right: 0.7rem;
+    vertical-align: middle;
+    margin: 5px;
+}
+
+.simple-icon:hover {
+    transition: 0.4s;
+    transform: scale(1.1)
+}
+
+/*HEADER*/
+.container {
+    background-color: var(--secondary);
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    padding: 5px;
+}
+
+.button-log {
+    border-radius: 15px;
+    font-size: large;
+    font-weight: bold;
+}
+
+/*Under HEADER*/
+.under-header {
+    background-color: var(--dark-blue);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+/*MAIN*/
+.main-content {
+    margin: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(45px, 1fr));
+    color: var(--secondary);
+}
+
+.main-content span {
+    color: var(--secondary);
+}
+
+/*FORM POP UP*/
+#form-title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: left;
+    padding: 2% 0 0 5%;
+    color: var(--main-blue);
+}
+
+/* Form set up */
+.pop-up {
+    width: 40%;
+    height: 85.5%;
+    background-color: var(--form);
+    border-radius: 0 25px 25px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0.9;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+}
+
+.pop-up.hidden {
+    transform: translate(-100%, 0);
+}
+
+.pop-up.show {
+    transform: none;
+}
+
+form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 45px;
+    padding: 50px;
+    color: var(--form-txt);
+    place-content: center;
+}
+
+.input-container {
+    background-color: var(--form);
+}
+
+.form-input {
+    display: block;
+    border-radius: 4px;
+    border: 0;
+    border-bottom: 1px solid var(--form-txt);
+    padding: 6px 6px 6px 10px;
+    margin-top: 5px;
+    background-color: var(--light);
+    transition: all .3s ease-in;
+}
+
+input::placeholder {
+    color: var(--form-txt);
+}
+
+#checkbox {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+    padding: 6px 6px 6px 10px;
+    background-color: var(--light);
+    border-bottom: 1px solid var(--form-txt);
+    border-radius: 4px;
+}
+
+#checkbox span {
+    color: var(--form-txt);
+}
+
+.submit-btn {
+    border-radius: 4px;
+    border: 0;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    color: var(--form-txt);
+    background-color: var(--main-blue);
+    cursor: pointer;
+}
+
+/* Effects */
+input:focus {
+    font-size: 1em;
+    border-radius: 4px;
+    color: var(--form-txt);
+    background-color: var(--dark-blue);
+    border: 1px solid var(--form-txt);
+}
+
+input:focus-visible {
+    outline: none;
+}
+
+input:valid {
+    font-size: 1em;
+    border-radius: 4px;
+    color: var(--form-txt);
+    background-color: var(--secondary);
+}
+
+input:invalid:not(:placeholder-shown) {
+    font-size: 1em;
+    border-radius: 4px;
+    color: var(--form-txt);
+    background-color: var(--secondary);
+}
+
+/* FOOTER */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0 0 10px 0;
+}
+
+.container-footer {
+    background-color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SWITCH */
+/* The slider container */
+.switch-container {
+    display: flex;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch {
+    width: 60px;
+    height: 34px;
+    border-radius: 34px;
+    border: 0.4vw inset var(--main-blue);
+    background-color: var(--blue);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.theme-toggle:hover {
+    cursor: pointer;
+}
+
+/* The slider */
+#slider {
+    cursor: pointer;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+#slider:before {
+    content: ' ';
+    display: inline-block;
+    position: relative;
+    height: 33px;
+    width: 33px;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+#slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+
+/* The two themes */
+#slider.dark:before {
+    background: url("../Public/Images/moon.svg") no-repeat;
+    background-size: contain;
+}
+
+#slider.light:before {
+    background: url("../Public/Images/sun.svg") no-repeat;
+    background-size: contain;
+}
